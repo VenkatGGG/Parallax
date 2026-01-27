@@ -1,0 +1,46 @@
+syntax = "proto3";
+package ops.v1;
+option go_package = "gen/go/ops/v1;opsv1";
+
+import "ops/v1/actions.proto";
+import "common/v1/types.proto";
+
+// Service for managing actions (used by orchestrator)
+service ActionService {
+  rpc ListPendingActions(ListPendingActionsRequest) returns (ListPendingActionsResponse);
+  rpc ApproveAction(ApproveActionRequest) returns (ApproveActionResponse);
+  rpc RejectAction(RejectActionRequest) returns (RejectActionResponse);
+  rpc GetActionHistory(GetActionHistoryRequest) returns (GetActionHistoryResponse);
+}
+
+message ListPendingActionsRequest {
+  int32 limit = 1;
+}
+message ListPendingActionsResponse {
+  repeated Action actions = 1;
+}
+
+message ApproveActionRequest {
+  common.v1.UUID action_id = 1;
+}
+message ApproveActionResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message RejectActionRequest {
+  common.v1.UUID action_id = 1;
+  string reason = 2;
+}
+message RejectActionResponse {
+  bool success = 1;
+}
+
+message GetActionHistoryRequest {
+  int32 limit = 1;
+  int32 offset = 2;
+}
+message GetActionHistoryResponse {
+  repeated Action actions = 1;
+  int32 total_count = 2;
+}
