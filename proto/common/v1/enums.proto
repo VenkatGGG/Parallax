@@ -1,0 +1,60 @@
+syntax = "proto3";
+package common.v1;
+option go_package = "gen/go/common/v1;commonv1";
+
+// Node operational status
+enum NodeStatus {
+  NODE_STATUS_UNSPECIFIED = 0;
+  NODE_STATUS_HEALTHY = 1;
+  NODE_STATUS_DEGRADED = 2;
+  NODE_STATUS_UNHEALTHY = 3;
+  NODE_STATUS_OFFLINE = 4;
+}
+
+// Service health state
+enum ServiceHealth {
+  SERVICE_HEALTH_UNSPECIFIED = 0;
+  SERVICE_HEALTH_HEALTHY = 1;
+  SERVICE_HEALTH_DEGRADED = 2;
+  SERVICE_HEALTH_CRITICAL = 3;
+  SERVICE_HEALTH_DOWN = 4;
+}
+
+// Incident severity levels
+enum IncidentSeverity {
+  INCIDENT_SEVERITY_UNSPECIFIED = 0;
+  INCIDENT_SEVERITY_INFO = 1;
+  INCIDENT_SEVERITY_WARNING = 2;
+  INCIDENT_SEVERITY_CRITICAL = 3;
+  INCIDENT_SEVERITY_FATAL = 4;
+}
+
+// Action types the agent can perform
+enum ActionType {
+  ACTION_TYPE_UNSPECIFIED = 0;
+  ACTION_TYPE_RESTART_SERVICE = 1;
+  ACTION_TYPE_SCALE_UP = 2;
+  ACTION_TYPE_SCALE_DOWN = 3;
+  ACTION_TYPE_DRAIN_NODE = 4;
+  ACTION_TYPE_REBALANCE_TRAFFIC = 5;
+  ACTION_TYPE_ROLLBACK = 6;
+}
+
+// Action execution status
+enum ActionStatus {
+  ACTION_STATUS_UNSPECIFIED = 0;
+  ACTION_STATUS_PENDING = 1;
+  ACTION_STATUS_APPROVED = 2;
+  ACTION_STATUS_REJECTED = 3;
+  ACTION_STATUS_EXECUTING = 4;
+  ACTION_STATUS_COMPLETED = 5;
+  ACTION_STATUS_FAILED = 6;
+}
+
+// Simulation control states
+enum SimulationState {
+  SIMULATION_STATE_UNSPECIFIED = 0;
+  SIMULATION_STATE_STOPPED = 1;
+  SIMULATION_STATE_RUNNING = 2;
+  SIMULATION_STATE_PAUSED = 3;
+}
