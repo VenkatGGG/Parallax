@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  nats:
+    image: nats:2.10-alpine
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+    command: ["--jetstream", "--store_dir=/data", "-m", "8222"]
+    volumes:
+      - nats-data:/data
+    networks:
+      - microcloud-net
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8222/healthz"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  timescaledb:
+    image: timescale/timescaledb:latest-pg16
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: microcloud
+      POSTGRES_USER: microcloud
+      POSTGRES_PASSWORD: microcloud
+    volumes:
+      - timescale-data:/var/lib/postgresql/data
+    networks:
+      - microcloud-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U microcloud -d microcloud"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+networks:
+  microcloud-net:
+    driver: bridge
+
+volumes:
+  nats-data:
+  timescale-data:
