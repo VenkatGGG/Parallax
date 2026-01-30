@@ -4,6 +4,10 @@ option go_package = "gen/go/ops/v1;opsv1";
 
 import "ops/v1/actions.proto";
 import "common/v1/types.proto";
+option go_package = "github.com/microcloud/gen/go/ops/v1;opsv1";
+
+import "common/v1/types.proto";
+import "ops/v1/actions.proto";
 
 // Service for managing actions (used by orchestrator)
 service ActionService {
@@ -16,6 +20,7 @@ service ActionService {
 message ListPendingActionsRequest {
   int32 limit = 1;
 }
+
 message ListPendingActionsResponse {
   repeated Action actions = 1;
 }
@@ -23,6 +28,7 @@ message ListPendingActionsResponse {
 message ApproveActionRequest {
   common.v1.UUID action_id = 1;
 }
+
 message ApproveActionResponse {
   bool success = 1;
   string message = 2;
@@ -32,6 +38,7 @@ message RejectActionRequest {
   common.v1.UUID action_id = 1;
   string reason = 2;
 }
+
 message RejectActionResponse {
   bool success = 1;
 }
@@ -40,6 +47,7 @@ message GetActionHistoryRequest {
   int32 limit = 1;
   int32 offset = 2;
 }
+
 message GetActionHistoryResponse {
   repeated Action actions = 1;
   int32 total_count = 2;

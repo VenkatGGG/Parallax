@@ -1,0 +1,43 @@
+syntax = "proto3";
+package sim.v1;
+option go_package = "github.com/microcloud/gen/go/sim/v1;simv1";
+
+import "common/v1/enums.proto";
+
+// Control service for the simulation engine
+service SimulationControl {
+  rpc GetState(GetStateRequest) returns (GetStateResponse);
+  rpc SetState(SetStateRequest) returns (SetStateResponse);
+  rpc SetSpeed(SetSpeedRequest) returns (SetSpeedResponse);
+  rpc LoadScenario(LoadScenarioRequest) returns (LoadScenarioResponse);
+}
+
+message GetStateRequest {}
+message GetStateResponse {
+  common.v1.SimulationState state = 1;
+  double speed_multiplier = 2;
+  int64 current_tick = 3;
+  string active_scenario = 4;
+}
+
+message SetStateRequest {
+  common.v1.SimulationState state = 1;  // RUNNING, PAUSED, STOPPED
+}
+message SetStateResponse {
+  common.v1.SimulationState state = 1;
+}
+
+message SetSpeedRequest {
+  double speed_multiplier = 1;  // 0.5 = half speed, 2.0 = double speed
+}
+message SetSpeedResponse {
+  double speed_multiplier = 1;
+}
+
+message LoadScenarioRequest {
+  string scenario_name = 1;  // e.g., "normal", "high_load", "cascade_failure"
+}
+message LoadScenarioResponse {
+  bool success = 1;
+  string message = 2;
+}

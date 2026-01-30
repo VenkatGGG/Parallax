@@ -1,0 +1,58 @@
+syntax = "proto3";
+package sim.v1;
+option go_package = "github.com/microcloud/gen/go/sim/v1;simv1";
+
+import "common/v1/types.proto";
+import "common/v1/enums.proto";
+
+// A compute node in the simulated cloud
+message Node {
+  common.v1.UUID id = 1;
+  string name = 2;
+  common.v1.NodeStatus status = 3;
+  double cpu_usage_percent = 4;      // 0-100
+  double memory_usage_percent = 5;   // 0-100
+  double disk_usage_percent = 6;     // 0-100
+  int32 running_services = 7;
+  string availability_zone = 8;
+  map<string, string> labels = 9;
+}
+
+// A service running on a node
+message Service {
+  common.v1.UUID id = 1;
+  string name = 2;
+  common.v1.UUID node_id = 3;
+  common.v1.ServiceHealth health = 4;
+  double requests_per_second = 5;
+  double error_rate_percent = 6;     // 0-100
+  double latency_p50_ms = 7;
+  double latency_p99_ms = 8;
+  int32 replica_count = 9;
+  int32 desired_replicas = 10;
+}
+
+// Snapshot of metrics at a specific tick
+message MetricSnapshot {
+  common.v1.SimulationTimestamp timestamp = 1;
+  repeated Node nodes = 2;
+  repeated Service services = 3;
+  TrafficStats traffic = 4;
+}
+
+// Aggregate traffic statistics
+message TrafficStats {
+  double total_rps = 1;
+  double total_error_rate = 2;
+  double avg_latency_ms = 3;
+  int64 active_connections = 4;
+}
+
+// Event emitted when simulation state changes
+message SimulationEvent {
+  common.v1.SimulationTimestamp timestamp = 1;
+  string event_type = 2;  // "node_added", "service_crashed", etc.
+  string target_id = 3;
+  string description = 4;
+  map<string, string> metadata = 5;
+}

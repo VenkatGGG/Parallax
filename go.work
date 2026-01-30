@@ -1,0 +1,12 @@
+go 1.23
+
+use (
+	./cmd/agent-service
+	./cmd/orchestrator
+	./cmd/signal-service
+	./cmd/sim-engine
+	./gen/go
+	./pkg/bus
+	./pkg/logger
+	./pkg/storage
+)
