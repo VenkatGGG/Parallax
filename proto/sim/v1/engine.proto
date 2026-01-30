@@ -1,6 +1,6 @@
 syntax = "proto3";
 package sim.v1;
-option go_package = "gen/go/sim/v1;simv1";
+option go_package = "github.com/microcloud/gen/go/sim/v1;simv1";
 
 import "common/v1/types.proto";
 import "common/v1/enums.proto";

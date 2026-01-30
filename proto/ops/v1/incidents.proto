@@ -1,0 +1,31 @@
+syntax = "proto3";
+package ops.v1;
+option go_package = "github.com/microcloud/gen/go/ops/v1;opsv1";
+
+import "common/v1/types.proto";
+import "common/v1/enums.proto";
+
+// An incident detected by signal-service
+message Incident {
+  common.v1.UUID id = 1;
+  common.v1.SimulationTimestamp detected_at = 2;
+  common.v1.IncidentSeverity severity = 3;
+  string title = 4;
+  string description = 5;
+  string source_service = 6;
+  repeated string affected_ids = 7;
+  string rule_name = 8;
+  map<string, double> metrics = 9;
+  bool resolved = 10;
+  common.v1.SimulationTimestamp resolved_at = 11;
+}
+
+// Detection rule configuration
+message DetectionRule {
+  string name = 1;
+  string metric_name = 2;
+  string operator = 3;
+  double threshold = 4;
+  int32 window_seconds = 5;
+  common.v1.IncidentSeverity severity = 6;
+}
