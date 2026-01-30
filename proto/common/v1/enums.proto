@@ -1,5 +1,17 @@
 syntax = "proto3";
 package common.v1;
+option go_package = "gen/go/common/v1;commonv1";
+
+// Severity level for incidents
+enum IncidentSeverity {
+  INCIDENT_SEVERITY_UNSPECIFIED = 0;
+  INCIDENT_SEVERITY_LOW = 1;
+  INCIDENT_SEVERITY_MEDIUM = 2;
+  INCIDENT_SEVERITY_HIGH = 3;
+  INCIDENT_SEVERITY_CRITICAL = 4;
+}
+
+// Type of remediation action
 option go_package = "github.com/microcloud/gen/go/common/v1;commonv1";
 
 // Node operational status
@@ -35,6 +47,13 @@ enum ActionType {
   ACTION_TYPE_RESTART_SERVICE = 1;
   ACTION_TYPE_SCALE_UP = 2;
   ACTION_TYPE_SCALE_DOWN = 3;
+  ACTION_TYPE_FAILOVER = 4;
+  ACTION_TYPE_DRAIN_NODE = 5;
+  ACTION_TYPE_REBALANCE = 6;
+  ACTION_TYPE_ROLLBACK = 7;
+}
+
+// Status of a remediation action
   ACTION_TYPE_DRAIN_NODE = 4;
   ACTION_TYPE_REBALANCE_TRAFFIC = 5;
   ACTION_TYPE_ROLLBACK = 6;

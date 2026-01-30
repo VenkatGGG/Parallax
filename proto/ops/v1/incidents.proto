@@ -1,5 +1,6 @@
 syntax = "proto3";
 package ops.v1;
+option go_package = "gen/go/ops/v1;opsv1";
 option go_package = "github.com/microcloud/gen/go/ops/v1;opsv1";
 
 import "common/v1/types.proto";
@@ -12,6 +13,10 @@ message Incident {
   common.v1.IncidentSeverity severity = 3;
   string title = 4;
   string description = 5;
+  string source_service = 6;       // Which service detected it
+  repeated string affected_ids = 7; // Node or Service IDs affected
+  string rule_name = 8;            // Detection rule that fired
+  map<string, double> metrics = 9; // Relevant metric values
   string source_service = 6;
   repeated string affected_ids = 7;
   string rule_name = 8;
@@ -24,6 +29,9 @@ message Incident {
 message DetectionRule {
   string name = 1;
   string metric_name = 2;
+  string operator = 3;      // "gt", "lt", "eq", "gte", "lte"
+  double threshold = 4;
+  int32 window_seconds = 5; // How long condition must persist
   string operator = 3;
   double threshold = 4;
   int32 window_seconds = 5;

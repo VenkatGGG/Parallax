@@ -1,5 +1,9 @@
 syntax = "proto3";
 package ops.v1;
+option go_package = "gen/go/ops/v1;opsv1";
+
+import "ops/v1/actions.proto";
+import "common/v1/types.proto";
 option go_package = "github.com/microcloud/gen/go/ops/v1;opsv1";
 
 import "common/v1/types.proto";

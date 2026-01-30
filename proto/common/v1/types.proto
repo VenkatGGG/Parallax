@@ -1,5 +1,8 @@
 syntax = "proto3";
 package common.v1;
+option go_package = "gen/go/common/v1;commonv1";
+
+// Universally unique identifier
 option go_package = "github.com/microcloud/gen/go/common/v1;commonv1";
 
 // Unique identifier wrapper
@@ -7,6 +10,10 @@ message UUID {
   string value = 1;
 }
 
+// Timestamp within the simulation
+message SimulationTimestamp {
+  int64 tick_id = 1;      // Logical tick number
+  int64 wall_time_ms = 2; // Wall clock time in milliseconds
 // Simulation timestamp (supports sim time vs wall time)
 message SimulationTimestamp {
   int64 tick_id = 1;           // Monotonic tick counter
