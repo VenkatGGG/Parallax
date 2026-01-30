@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+}
+
+.status-healthy { @apply text-green-400; }
+.status-degraded { @apply text-yellow-400; }
+.status-critical { @apply text-red-400; }
+.status-offline { @apply text-gray-500; }
+
+.severity-info { @apply bg-blue-500/20 text-blue-400 border-blue-500/50; }
+.severity-warning { @apply bg-yellow-500/20 text-yellow-400 border-yellow-500/50; }
+.severity-critical { @apply bg-red-500/20 text-red-400 border-red-500/50; }
+.severity-fatal { @apply bg-red-700/20 text-red-300 border-red-700/50; }
