@@ -5,6 +5,7 @@ use (
 	./cmd/orchestrator
 	./cmd/signal-service
 	./cmd/sim-engine
+	./gen/go
 	./pkg/bus
 	./pkg/logger
 	./pkg/storage
